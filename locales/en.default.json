@@ -8,6 +8,7 @@
       "vendor": "Vendor:",
       "error": "Error",
       "refresh_page": "Refresh page",
+      "menu": "Menu",
       "link_messages": {
         "new_window": "Opens in a new window.",
         "external": "Opens external website.",
@@ -37,7 +38,8 @@
   },
   "accessibility": {
     "skip_to_text": "Skip to content",
-    "close": "Close"
+    "close": "Close",
+    "menu": "Menu"
   },
   "blogs": {
     "article": {
@@ -162,6 +164,11 @@
     },
     "modal": {
       "label": "Media gallery"
+    }
+  },
+  "templates": {
+    "cart": {
+      "cart": "Cart"
     }
   }
 }
