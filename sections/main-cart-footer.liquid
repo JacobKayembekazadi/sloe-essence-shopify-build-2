@@ -1,0 +1,86 @@
+<div class="cart-footer bg-accent py-8">
+  <div class="max-w-container mx-auto px-4 lg:px-8">
+    {%- if cart != empty -%}
+      <div class="max-w-md ml-auto">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'subtotal' -%}
+              <div class="cart-subtotal space-y-4" {{ block.shopify_attributes }}>
+                {%- if cart.cart_level_discount_applications.size > 0 -%}
+                  <div class="cart-discounts">
+                    {%- for discount in cart.cart_level_discount_applications -%}
+                      <div class="flex justify-between text-primary">
+                        <span>{{ discount.title }}</span>
+                        <span>-{{ discount.total_allocated_amount | money }}</span>
+                      </div>
+                    {%- endfor -%}
+                  </div>
+                {%- endif -%}
+                
+                <div class="flex justify-between text-lg">
+                  <span class="font-medium text-text">Subtotal:</span>
+                  <span class="font-bold text-text">{{ cart.total_price | money }}</span>
+                </div>
+                
+                <div class="text-sm text-text opacity-70">
+                  {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
+                    {{ 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                  {%- elsif cart.taxes_included -%}
+                    {{ 'sections.cart.taxes_included_but_shipping_at_checkout' | t }}
+                  {%- elsif shop.shipping_policy.body != blank -%}
+                    {{ 'sections.cart.taxes_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                  {%- else -%}
+                    {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
+                  {%- endif -%}
+                </div>
+              </div>
+
+            {%- when 'buttons' -%}
+              <div class="cart-actions mt-8 space-y-4" {{ block.shopify_attributes }}>
+                <button type="submit" name="update" class="btn-secondary w-full" form="cart">
+                  {{ 'sections.cart.update' | t }}
+                </button>
+                
+                <button 
+                  type="submit" 
+                  name="add" 
+                  class="btn-primary w-full"
+                  form="cart"
+                  formaction="{{ routes.cart_url }}"
+                  formmethod="post"
+                >
+                  {{ 'sections.cart.checkout' | t }}
+                </button>
+                
+                {%- if additional_checkout_buttons -%}
+                  <div class="additional-checkout-buttons">
+                    {{ content_for_additional_checkout_buttons }}
+                  </div>
+                {%- endif -%}
+              </div>
+
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cart footer",
+  "class": "cart-footer",
+  "blocks": [
+    {
+      "type": "subtotal",
+      "name": "Subtotal",
+      "limit": 1
+    },
+    {
+      "type": "buttons",
+      "name": "Buttons",
+      "limit": 1
+    }
+  ]
+}
+{% endschema %}

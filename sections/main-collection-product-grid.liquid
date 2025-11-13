@@ -1,0 +1,232 @@
+<div class="collection-products bg-background py-12">
+  <div class="max-w-container mx-auto px-4 lg:px-8">
+    
+    {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
+      <div class="collection-controls flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8 pb-6 border-b border-border">
+        
+        {%- if section.settings.enable_filtering and collection.filters.size > 0 -%}
+          <div class="collection-filters">
+            <form class="filter-form">
+              {%- for filter in collection.filters -%}
+                <div class="filter-group mb-4">
+                  <h3 class="font-semibold text-text mb-2">{{ filter.label }}</h3>
+                  
+                  {%- case filter.type -%}
+                    {%- when 'list' -%}
+                      <div class="filter-values space-y-2">
+                        {%- for value in filter.values -%}
+                          <label class="flex items-center">
+                            <input
+                              type="checkbox"
+                              name="{{ value.param_name }}"
+                              value="{{ value.value }}"
+                              {% if value.active %}checked{% endif %}
+                              class="mr-2"
+                            >
+                            <span class="text-sm text-text">{{ value.label }} ({{ value.count }})</span>
+                          </label>
+                        {%- endfor -%}
+                      </div>
+                    
+                    {%- when 'price_range' -%}
+                      <div class="price-range-filter">
+                        <div class="flex gap-4 items-center">
+                          <input
+                            type="number"
+                            name="{{ filter.min_value.param_name }}"
+                            id="Filter-{{ filter.label | escape }}-GTE"
+                            {% if filter.min_value.value %}value="{{ filter.min_value.value | divided_by: 100 }}"{% endif %}
+                            placeholder="0"
+                            min="0"
+                            class="px-3 py-2 border border-border rounded-md w-24"
+                          >
+                          <span>to</span>
+                          <input
+                            type="number"
+                            name="{{ filter.max_value.param_name }}"
+                            id="Filter-{{ filter.label | escape }}-LTE"
+                            {% if filter.max_value.value %}value="{{ filter.max_value.value | divided_by: 100 }}"{% endif %}
+                            placeholder="50"
+                            min="0"
+                            class="px-3 py-2 border border-border rounded-md w-24"
+                          >
+                        </div>
+                      </div>
+                  {%- endcase -%}
+                </div>
+              {%- endfor -%}
+              
+              <button type="submit" class="btn-primary text-sm">Apply Filters</button>
+            </form>
+          </div>
+        {%- endif -%}
+        
+        {%- if section.settings.enable_sorting -%}
+          <div class="collection-sort">
+            <label for="SortBy" class="font-semibold text-text mr-2">{{ 'sections.collection_template.sort_by_label' | t }}</label>
+            <select name="sort_by" id="SortBy" class="px-3 py-2 border border-border rounded-md" onchange="location.href=this.value">
+              {%- for option in collection.sort_options -%}
+                <option value="{{ option.value | escape }}" {% if option.value == collection.sort_by %}selected{% endif %}>
+                  {{ option.name | escape }}
+                </option>
+              {%- endfor -%}
+            </select>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if collection.products.size > 0 -%}
+      <div class="products-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-{{ section.settings.columns_desktop }} gap-6">
+        {%- for product in collection.products limit: section.settings.products_per_page -%}
+          <div class="product-item">
+            <div class="product-card bg-white rounded-sloe-card shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <a href="{{ product.url }}" class="product-link">
+                {%- if product.featured_image -%}
+                  <div class="product-image-wrapper relative">
+                    <img
+                      src="{{ product.featured_image | image_url: width: 400 }}"
+                      alt="{{ product.featured_image.alt | escape }}"
+                      loading="lazy"
+                      class="product-image w-full h-64 object-cover"
+                      width="400"
+                      height="400"
+                    >
+                    
+                    {%- if section.settings.show_secondary_image and product.images[1] -%}
+                      <img
+                        src="{{ product.images[1] | image_url: width: 400 }}"
+                        alt="{{ product.images[1].alt | escape }}"
+                        loading="lazy"
+                        class="product-image-secondary absolute top-0 left-0 w-full h-64 object-cover opacity-0 hover:opacity-100 transition-opacity"
+                        width="400"
+                        height="400"
+                      >
+                    {%- endif -%}
+                    
+                    {%- if product.compare_at_price > product.price -%}
+                      <div class="product-badge absolute top-2 left-2 bg-primary text-white px-2 py-1 text-xs rounded">
+                        Sale
+                      </div>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+                
+                <div class="product-info p-4">
+                  {%- if section.settings.show_vendor and product.vendor != blank -%}
+                    <div class="product-vendor text-sm text-text opacity-70 mb-1">{{ product.vendor }}</div>
+                  {%- endif -%}
+                  
+                  <h3 class="product-title font-display font-bold text-lg text-text mb-2 line-clamp-2">
+                    {{ product.title }}
+                  </h3>
+                  
+                  <div class="product-price mb-3">
+                    <span class="price font-bold text-primary">{{ product.price | money }}</span>
+                    {%- if product.compare_at_price > product.price -%}
+                      <span class="compare-price text-sm text-text opacity-50 line-through ml-2">{{ product.compare_at_price | money }}</span>
+                    {%- endif -%}
+                  </div>
+                  
+                  {%- if section.settings.show_rating and product.metafields.reviews.rating.value != blank -%}
+                    <div class="product-rating flex items-center mb-2">
+                      <div class="stars flex">
+                        {%- assign rating = product.metafields.reviews.rating.value | round -%}
+                        {%- for i in (1..5) -%}
+                          <svg class="w-4 h-4 {% if i <= rating %}text-yellow-400{% else %}text-gray-300{% endif %}" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.817 2.045a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.683-1.538 1.118l-2.817-2.045a1 1 0 00-1.175 0l-2.817 2.045c-.783.565-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                          </svg>
+                        {%- endfor -%}
+                      </div>
+                      <span class="rating-count text-sm text-text opacity-70 ml-2">({{ product.metafields.reviews.rating_count.value }})</span>
+                    </div>
+                  {%- endif -%}
+                </div>
+              </a>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+      
+      {%- if paginate.pages > 1 -%}
+        <div class="pagination-wrapper mt-12">
+          {% render 'pagination', paginate: paginate %}
+        </div>
+      {%- endif -%}
+      
+    {%- else -%}
+      <div class="empty-collection text-center py-20">
+        <h2 class="font-display font-bold text-2xl text-text mb-4">No products found</h2>
+        <p class="text-lg text-text opacity-80 mb-8">Try adjusting your search or filter to find what you're looking for.</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn-primary">
+          Browse All Products
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<style>
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Product grid",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "default": 16,
+      "label": "Products per page"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "Columns on desktop"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "label": "Show secondary image on hover",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show product rating",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "label": "Enable filtering",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "label": "Enable sorting",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

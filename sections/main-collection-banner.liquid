@@ -1,0 +1,30 @@
+<div class="collection-banner bg-accent py-16">
+  <div class="max-w-container mx-auto px-4 lg:px-8 text-center">
+    <h1 class="font-display font-bold text-4xl lg:text-5xl text-text mb-4">
+      {{ collection.title | default: page_title }}
+    </h1>
+    
+    {%- if collection.description != blank -%}
+      <div class="collection-description max-w-2xl mx-auto">
+        <p class="text-lg text-text opacity-80">
+          {{ collection.description }}
+        </p>
+      </div>
+    {%- endif -%}
+    
+    {%- if collection.products_count > 0 -%}
+      <div class="mt-6">
+        <p class="text-text opacity-70">
+          {{ 'sections.collection_template.product_count' | t: count: collection.products_count }}
+        </p>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection banner",
+  "settings": []
+}
+{% endschema %}
