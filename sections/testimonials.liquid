@@ -1,0 +1,112 @@
+<section class="testimonials bg-accent py-20">
+  <div class="max-w-container mx-auto px-4 lg:px-8">
+    <h2 class="font-display font-bold text-3xl lg:text-4xl text-center text-text mb-12">
+      {%- if section.settings.heading != blank -%}
+        {{ section.settings.heading }}
+      {%- else -%}
+        Real Results. Real People.
+      {%- endif -%}
+    </h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {%- for block in section.blocks -%}
+        <div class="bg-white p-6 rounded-sloe-card shadow-lg flex flex-col justify-between" {{ block.shopify_attributes }}>
+          {%- comment -%} Star Rating {%- endcomment -%}
+          {%- if block.settings.rating != blank -%}
+            <div class="flex space-x-1 mb-4">
+              {%- for i in (1..5) -%}
+                <svg class="w-4 h-4 {% if i <= block.settings.rating %}text-yellow-400{% else %}text-gray-300{% endif %}" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.817 2.045a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.683-1.538 1.118l-2.817-2.045a1 1 0 00-1.175 0l-2.817 2.045c-.783.565-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+          
+          {%- if block.settings.quote != blank -%}
+            <p class="text-lg italic text-text opacity-90 mb-4">
+              "{{ block.settings.quote }}"
+            </p>
+          {%- endif -%}
+          
+          {%- if block.settings.author != blank -%}
+            <p class="pt-2 border-t border-border font-semibold text-primary">
+              — {{ block.settings.author }}
+            </p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "Real Results. Real People."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author name"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "My skin is glowing! The AI completely customized my routine and cleared my acne in just two weeks. Finally, a system that works, not just a bunch of products.",
+            "author": "Sarah J."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "As a guy, skincare was confusing. The Sloe App made it simple, and the moisturizer is the best I've ever used. My routine takes 3 minutes and my face looks healthier.",
+            "author": "Mark K."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 4,
+            "quote": "I tried everything for rosacea. The precision serum, guided by the AI's analysis, reduced my redness dramatically. Highly recommend the full regimen.",
+            "author": "Chloe A."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

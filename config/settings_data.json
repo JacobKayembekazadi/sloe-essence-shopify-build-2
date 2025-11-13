@@ -1,0 +1,12 @@
+{
+  "color_primary": "#2563EB",
+  "color_accent": "#F9FAFB", 
+  "color_text": "#1F2937",
+  "color_background": "#FFFFFF",
+  "color_border": "#E5E7EB",
+  "container_max_width": 1280,
+  "enable_announcement_bar": true,
+  "announcement_text": "Download our skincare app today — **Free shipping** on all orders over $75!",
+  "enable_product_reviews": true,
+  "enable_product_zoom": true
+}

@@ -1,0 +1,145 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Sloe Essence",
+    "theme_version": "1.0.0",
+    "theme_author": "Sloe Essence",
+    "theme_documentation_url": "",
+    "theme_support_url": ""
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary Color",
+        "default": "#2563EB"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent Color", 
+        "default": "#F9FAFB"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text Color",
+        "default": "#1F2937"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background Color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Border Color",
+        "default": "#E5E7EB"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Fonts"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_display",
+        "label": "Display Font",
+        "default": "source_sans_pro_n7"
+      },
+      {
+        "type": "font_picker", 
+        "id": "font_body",
+        "label": "Body Font",
+        "default": "source_sans_pro_n4"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Container Settings"
+      },
+      {
+        "type": "range",
+        "id": "container_max_width",
+        "label": "Container Max Width (px)",
+        "min": 1200,
+        "max": 1600,
+        "step": 50,
+        "default": 1280
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_announcement_bar",
+        "label": "Enable Announcement Bar",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "announcement_text",
+        "label": "Announcement Text",
+        "default": "Download our skincare app today — Free shipping on all orders over $75!"
+      }
+    ]
+  },
+  {
+    "name": "Product Settings",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Product Display"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_product_reviews",
+        "label": "Enable Product Reviews",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_product_zoom",
+        "label": "Enable Product Image Zoom",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social Links"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok",
+        "label": "TikTok URL"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook URL"
+      }
+    ]
+  }
+]

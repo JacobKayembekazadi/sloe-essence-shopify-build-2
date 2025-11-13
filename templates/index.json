@@ -1,0 +1,99 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "heading": "AI-Powered Skincare.<br>Organically Sourced.",
+        "subtext": "Stop guessing. Let our AI analyze your skin and build the perfect routine for you.",
+        "button_text": "Discover Your Routine",
+        "button_url": "/collections/all"
+      }
+    },
+    "product-showcase": {
+      "type": "product-showcase",
+      "settings": {
+        "heading": "Meet the Core Essentials",
+        "button_text": "Shop All Products",
+        "button_url": "/collections/all"
+      }
+    },
+    "how-it-works": {
+      "type": "how-it-works",
+      "blocks": {
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "icon": "🔬",
+            "title": "Analyze",
+            "description": "Upload a selfie to our app. Our proprietary AI scans for texture, hydration, and redness."
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "icon": "🧠",
+            "title": "Calibrate", 
+            "description": "The AI instantly maps your skin's needs to the optimal concentration of our active ingredients."
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "icon": "💧",
+            "title": "Apply & Adapt",
+            "description": "Follow your prescribed routine. The AI tracks your progress and suggests micro-adjustments weekly."
+          }
+        }
+      },
+      "block_order": ["step-1", "step-2", "step-3"]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial-1": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "My skin is glowing! The AI completely customized my routine and cleared my acne in just two weeks. Finally, a system that works, not just a bunch of products.",
+            "author": "Sarah J."
+          }
+        },
+        "testimonial-2": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "As a guy, skincare was confusing. The Sloe App made it simple, and the moisturizer is the best I've ever used. My routine takes 3 minutes and my face looks healthier.",
+            "author": "Mark K."
+          }
+        },
+        "testimonial-3": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 4,
+            "quote": "I tried everything for rosacea. The precision serum, guided by the AI's analysis, reduced my redness dramatically. Highly recommend the full regimen.",
+            "author": "Chloe A."
+          }
+        }
+      },
+      "block_order": ["testimonial-1", "testimonial-2", "testimonial-3"]
+    },
+    "brand-story": {
+      "type": "brand-story",
+      "settings": {
+        "heading": "Expert Skincare. For Everyone.",
+        "text": "<p>We're democratizing skincare by blending the best of nature—pure, organic ingredients—with the power of AI. We're your partner in skin health, here to provide a smarter, more personal path to your best skin.</p>",
+        "button_text": "Learn Our Mission",
+        "button_url": "/pages/about"
+      }
+    },
+    "newsletter-signup": {
+      "type": "newsletter-signup",
+      "settings": {
+        "heading": "Get Smarter Skin Tips (and 10% Off)",
+        "subtext": "Join our list to get 10% off your first order, plus personalized advice and updates straight from our AI skin expert.",
+        "button_text": "Subscribe"
+      }
+    }
+  },
+  "order": ["hero", "product-showcase", "how-it-works", "testimonials", "brand-story", "newsletter-signup"]
+}

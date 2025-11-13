@@ -1,0 +1,29 @@
+{%- if section.settings.enable_announcement -%}
+  <div class="announcement-bar bg-primary text-white py-3 px-4 text-center text-sm font-medium">
+    {%- if section.settings.announcement_text != blank -%}
+      {{ section.settings.announcement_text }}
+    {%- else -%}
+      {{ settings.announcement_text | default: 'Download our skincare app today — Free shipping on all orders over $75!' }}
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_announcement",
+      "label": "Enable announcement bar",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "announcement_text",
+      "label": "Announcement text",
+      "default": "Download our skincare app today — Free shipping on all orders over $75!"
+    }
+  ]
+}
+{% endschema %}
